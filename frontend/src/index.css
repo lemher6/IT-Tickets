@@ -1,0 +1,120 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #0b0d12;
+  --surface: #12151e;
+  --surface2:#161929;
+  --border:  #1e2336;
+  --accent:  #4f8ef7;
+  --accent2: #7c5ef7;
+  --green:   #3ddba4;
+  --amber:   #f7b84f;
+  --red:     #f75f5f;
+  --text:    #e2e8f8;
+  --muted:   #5a6180;
+  --radius:  12px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  opacity: .4;
+  pointer-events: none;
+}
+
+#root { position: relative; z-index: 1; }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* utility */
+.mono { font-family: 'DM Mono', monospace; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.badge {
+  display: inline-flex; align-items: center;
+  font-family: 'DM Mono', monospace;
+  font-size: .65rem; letter-spacing: .1em;
+  padding: 3px 10px; border-radius: 20px;
+}
+
+.badge-open     { background: #f7b84f18; color: var(--amber); border: 1px solid #f7b84f30; }
+.badge-resolved { background: #3ddba418; color: var(--green); border: 1px solid #3ddba430; }
+.badge-critical { background: #f75f5f18; color: var(--red);   border: 1px solid #f75f5f30; }
+.badge-high     { background: #f7b84f18; color: var(--amber); border: 1px solid #f7b84f30; }
+.badge-medium   { background: #4f8ef718; color: var(--accent);border: 1px solid #4f8ef730; }
+.badge-low      { background: #3ddba418; color: var(--green); border: 1px solid #3ddba430; }
+
+button.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-family: 'Syne', sans-serif;
+  font-size: .85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity .2s, transform .1s;
+}
+button.btn-primary:hover { opacity: .85; }
+button.btn-primary:active { transform: scale(.98); }
+
+button.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-family: 'Syne', sans-serif;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+button.btn-ghost:hover { border-color: var(--accent); color: var(--text); }
+
+input, select {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-size: .85rem;
+  padding: 9px 14px;
+  outline: none;
+  transition: border-color .2s;
+}
+input:focus, select:focus { border-color: var(--accent); }
+select option { background: var(--surface2); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-up { animation: fadeUp .45s ease both; }

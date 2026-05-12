@@ -1,0 +1,83 @@
+.shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 28px 16px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .95rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  padding: 0 8px;
+  margin-bottom: 32px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+  flex-shrink: 0;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 8px var(--accent); }
+  50%       { box-shadow: 0 0 20px var(--accent); }
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  transition: background .15s, color .15s;
+}
+.link:hover { background: var(--surface2); color: var(--text); }
+.active { background: var(--surface2); color: var(--accent) !important; }
+
+.badge {
+  font-family: 'DM Mono', monospace;
+  font-size: .65rem;
+  color: var(--green);
+  border: 1px solid #3ddba430;
+  background: #3ddba408;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.main {
+  flex: 1;
+  padding: 36px 40px;
+  overflow-y: auto;
+}
