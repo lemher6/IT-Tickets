@@ -41,3 +41,4 @@ C:\github\ITSupport\backend\ITSupport.Api\obj\Debug\net8.0\ITSupport.Api.pdb
 C:\github\ITSupport\backend\ITSupport.Api\obj\Debug\net8.0\ITSupport.Api.genruntimeconfig.cache
 C:\github\ITSupport\backend\ITSupport.Api\obj\Debug\net8.0\ref\ITSupport.Api.dll
 C:\github\ITSupport\backend\ITSupport.Api\obj\Debug\net8.0\ITSupport.Api.sourcelink.json
+C:\github\ITSupport\backend\ITSupport.Api\bin\Debug\net8.0\Data\IT_Support_DataModel.xlsx

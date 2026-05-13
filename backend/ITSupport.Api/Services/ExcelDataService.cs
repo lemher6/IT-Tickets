@@ -10,8 +10,10 @@ public class ExcelDataService
 
     public ExcelDataService(IConfiguration config, ILogger<ExcelDataService> logger)
     {
-        _filePath = config["DataFilePath"] ?? "Data/IT_Support_DataModel.xlsx";
+        //_filePath = config["DataFilePath"] ?? "Data/IT_Support_DataModel.xlsx";
+        _filePath = Path.Combine(AppContext.BaseDirectory, "Data", "IT_Support_DataModel.xlsx");
         _logger = logger;
+        _logger.LogInformation("Excel path: {Path}", _filePath);
     }
 
     // ── Readers ────────────────────────────────────────────────────────────
@@ -27,19 +29,23 @@ public class ExcelDataService
 
         foreach (var row in ws.RowsUsed().Skip(1))
         {
-            var dateCreatedKey  = row.Cell(4).GetValue<int>();
-            var dateResolvedRaw = row.Cell(5).Value;
-            int? dateResolvedKey = dateResolvedRaw.IsBlank ? null : (int?)row.Cell(5).GetValue<int>();
+            var ticketId = row.Cell(1).GetString().Trim();
+            var submitterKey = row.Cell(2).GetValue<int>();
+            var agentKey = row.Cell(3).GetValue<int>();
+            var dateCreatedKey = row.Cell(4).GetValue<int>();
+            var dateResolvedKey = GetNullableInt(row.Cell(5));
+            var priorityLevel = row.Cell(6).GetString().Trim();
+            var satisfactionScore = GetNullableInt(row.Cell(7));
 
             var ticket = new Ticket
             {
-                TicketId        = row.Cell(1).GetString(),
-                SubmitterKey    = row.Cell(2).GetValue<int>(),
-                AgentKey        = row.Cell(3).GetValue<int>(),
-                DateCreatedKey  = dateCreatedKey,
+                TicketId = ticketId,
+                SubmitterKey = submitterKey,
+                AgentKey = agentKey,
+                DateCreatedKey = dateCreatedKey,
                 DateResolvedKey = dateResolvedKey,
-                PriorityLevel   = row.Cell(6).GetString(),
-                SatisfactionScore = row.Cell(7).Value.IsBlank ? null : (int?)row.Cell(7).GetValue<int>()
+                PriorityLevel = priorityLevel,
+                SatisfactionScore = satisfactionScore
             };
 
             if (agents.TryGetValue(ticket.AgentKey, out var agent))
@@ -215,5 +221,11 @@ public class ExcelDataService
                 dict[key] = dt;
         }
         return dict;
+    }
+
+    private static int? GetNullableInt(IXLCell cell)
+    {
+        var text = cell.GetString().Trim();
+        return int.TryParse(text, out var value) ? value : null;
     }
 }
